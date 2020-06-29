@@ -1,0 +1,18 @@
+{% extends "documentation/layoutDocu.html" %}
+{% block content %}
+<div class="container border">
+    <legend class="mb-4">About</legend>
+
+    <p>Diese Simulation ist im Rahmen einer Bachelorarbeit enstanden und soll helfen verschiedene varianten eines 
+        Collaborative Broadcast Algorithmus bezüglich eines Path-Loss-Modells zu visualisieren und analizieren.
+        Durch geschickte Phasenverschiebung der Sender ist es möglich durch interferrenz das gesendete Signal durch mehrer Sender zu verstärken.
+        In dem Model setzen wir zufällige Sender in eine zwei dimensionale Scheibe und alalizieren verschiedene Algorithmen welche die Phasenverschiebnung der Sender beeinflussen.
+        Dabei haben die Sender nur eingeschränkte Information. Sie kennen weder die Position der Empfänger noch die Positionen der anderer Sender.
+        In dem Model beachten wir die gegenseitige Wechselwirkung der Empfänger und Sender untereinernder bewusst nicht, ebensowenig wie Parasitäre Sender.
+        In der Simulation ist es möglich mehrer Sender und Empfänger ( bis zu eine Millionen jeweils) zu simulieren und visualisieren. 
+        Das Simulation-Tool läuft in einem Docker-Container und es lassen sich bei geeigneter Serverwahl die Anzahl der Sender und Empfänger weiter nachoben Skalieren.
+        Es ist möglich vorhandene Algorithmen zur laufzeit zur editieren und neue Algorithmen hinzuzufügen.
+
+        
+</div>
+{% endblock content%}

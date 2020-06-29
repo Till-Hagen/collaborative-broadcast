@@ -1,0 +1,8 @@
+flask
+matplotlib
+numba
+flask_wtf
+gunicorn
+flask-sqlalchemy
+flask-migrate
+scipy

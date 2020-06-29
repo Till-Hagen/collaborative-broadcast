@@ -1,0 +1,47 @@
+{% extends "documentation/layoutDocu.html" %}
+{% block content %}
+<div class="container border">
+    <legend class="mb-4">Receiver Sphere</legend>
+    <p>In this plot, each point corresponds to a receiver that is placed randomly within a <b>sphere</b>.
+        All receiver receives signals from the same Senders. The Senders are placed randomly within a radius 1 disc.
+        The signal at the receiver results from the addition of the received signals:
+        <a href="/documentation/model">model</a>.    
+        The signals amplify or cancel each other out according to the <a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Superposition_principle#Wave_interference">superpositions principle</a>.</p>
+
+    <h5><u><b>Number</b></u></h5>
+    <p> You can set the <b>random seed</b> which influences the position of the <b>senders</b> and <b>receivers</b>, 
+        so that <b>senders</b> and <b>receivers</b> always have the same position with the same number of <b>senders</b>, <b>receivers</b> and same <b>random seed</b>.
+        The required calculation factor is shown under <b>Log10(calculation) </b>and cannot take a value above 9.
+    </p>
+
+    <h5><u><b>Receiver Positions</b></u></h5>
+    <p><b>X,Y,Z</b> are the coordinates of the origin of the choosen shape and 
+        <b>Radius</b> the corresponding radius in which the receiver are randomly distributed.</p>
+
+    <h5><u><b>Parameters</b></u></h5>
+
+    <p>With <b>isotropic</b> you can decide whether a sender sends equally in all directions or not. See <a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Isotropic_radiator">Isotropic radiator</a>,
+    <a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Dipole_antenna#Hertzian_dipole">Dipole antenna</a></p>
+
+    <p><b>Path loss, Wavelength</b> and <b>b</b> are parameters of the <a href="/documentation/model">model</a>.
+        The parameters <b>Wavelength</b> and <b>b</b> are passed to the  <a href="/documentation/algorithms">algorithms</a>.
+    You can select which <b>algorithm</b> is used.</p>
+
+    <h5><u><b>Plot Settings</b></u></h5>
+
+    <p><b>Cut origin radius</b> cuts that all receivers that are within the selected radius from the origin (0,0,0) in the plot.</p>
+
+    <p><b>Min and Max</b> are bounds, so that all values ​​outside the cabinet are set to the respective minimum or maximum.</p>
+
+    <p>With <b>Plot</b> you can choose which part of the received signal is displayed. 
+        For example, only the imaginary part or only the real one.</p>
+
+    <p>You can set the colormap and change with <a target="_blank" rel="noopener noreferrer" href="https://de.wikipedia.org/wiki/Azimut">Elevation</a> and <a target="_blank" rel="noopener noreferrer" href="https://de.wikipedia.org/wiki/Azimut">Azimuth</a> the angles of the Plot.</p> 
+
+    <h5><u><b>Simulate</b></u></h5>
+
+    <p>
+        If only values ​​under plot sessings are changed, the algorithms are not re-simulated but the changes are applied to the plot.</p>
+
+</div>
+{% endblock content%}

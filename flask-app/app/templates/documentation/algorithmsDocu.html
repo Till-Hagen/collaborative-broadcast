@@ -1,0 +1,47 @@
+{% extends "documentation/layoutDocu.html" %}
+{% block content %}
+<div class="container border">
+    <legend class="mb-4">Add/Edit/Delete Algorithm</legend>
+
+    <p>Here you can add, edit or delete algorithms.
+        The defined algorithms are stored as a string in a Sql database and compiled at runtime.
+        New modules can also be imported and the operating system inside the container can be accessed.
+        Due to its power, this feature is only available for local use.</p>
+
+    <h5><u><b>Add</b></u></h5>
+
+    <p> You can add new algorithms by selecting "new", specifying a name, filling in the method and press save.
+        The return value must be a 2-tuple,
+        the first and the second value of the tuple must be type of <a target="_blank" rel="noopener noreferrer" href="https://numpy.org/doc/1.18/reference/generated/numpy.ndarray.html">ndarray</a> with size ​​equal to the number of senders. 
+        The first value determines the phase shift, the second the amplitude factor.<br>
+
+    </p>
+    <p>For example: The Supernova algorithm</p>
+
+    <samp>
+        <p><b><span style="color: #006699;">import</span> cmath<br>
+            <span style="color: #006699;">import</span> math<br>
+            <span style="color: #006699;">import</span> numpy <span style="color: #006699;">as</span> np</b></p>
+        <p class="mb-0"><b><span style="color: #006699;">def</span> new(
+            <span style="color: #3399ff;"> _X</span>: ndarray, 
+            <span style="color: #3399ff;"> _Y</span>: ndarray, 
+            <span style="color: #3399ff;"> _wavelength</span>: float, 
+            <span style="color: #3399ff;"> _b</span>: float):</b></p>
+            &nbsp;&nbsp;&nbsp;&nbsp;distanceToOrigin = np.sqrt(np.square(_X) + np.square(_Y))<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;cons = 2 * cmath.pi / _wavelength<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;varphi =  _b * cons * distanceToOrigin <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;a = np.ones(_X.shape)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;return (varphi, a)
+    </samp>
+    <p style="margin-top: 10px;">Pressing Save, the method is tested and if there is a syntactic or semantic error the corresponding error message appears.
+        If the test runs through, the defined algorithm can be used in all modules.
+    </p>
+    
+    <h5 ><u><b>Edit</b></u></h5>
+    <p>If you select an algorithm, you can rename it or change the behavior in the method. The change is saved by pressing save.
+        If the test does not run through, the algorithm is marked accordingly and cannot be used in other modules.</p>
+
+    <h5><u><b>Delete</b></u></h5>
+    <p>If you delete a selected algorithm, it is permanent, it cannot be restored. It can no longer be accessed in other modules.</p>
+</div>
+{% endblock content%}

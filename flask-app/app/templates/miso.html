@@ -1,0 +1,162 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container border">
+    <div class="chart" id="bargraph">
+        {% if show %}
+        <img src="/miso.png" />
+        {% endif %}
+    </div>
+</div>
+{% endblock content%}
+{% block content2 %}
+<form method="POST" action="">
+    {{ form.hidden_tag() }}
+    <fieldset class="form-group">
+        <legend class="border-bottom mb-4">Sender</legend>
+        <label class="form-control-label">Number</label>
+        <div class="input-group input-group-sm mb-2">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Random Seed</span>
+            </div>
+            {{ form.randomSeed(class="form-control form-control-sm", value=randomSeed, autocomplete="off")  }}
+            {% for error in form.randomSeed.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <div class="input-group input-group-sm mb-2">
+            <div class="input-group-prepend">
+                <span class="input-group-text" >Sender</span>
+            </div>
+            {{ form.numberSender(class="form-control form-control-sm", value=numberSender, id="numberSender", autocomplete="off")  }}
+            {% for error in form.numberSender.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <label class="form-control-label">Receiver Position</label>
+        <div class="form-row">      
+            <div class="col">
+                <div class="input-group input-group-sm mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">x</span>
+                    </div>
+                    {{ form.receiverX(class="form-control form-control-sm", value=receiverPos[0])  }}
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group input-group-sm mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Y</span>
+                    </div>
+                    {{ form.receiverY(class="form-control form-control-sm", value=receiverPos[1]) }}
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group input-group-sm mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Z</span>
+                    </div>
+                    {{ form.receiverZ(class="form-control form-control-sm", value=receiverPos[2]) }}
+                </div>
+            </div>
+        </div>
+        <label class="form-control-label">Parameter</label>
+        <div class="form-row">      
+            <div class="col">
+                <div class="form-check ml-2">
+                    {{ form.isotropic(class="form-check-input")  }}
+                    <label class="form-check-label" for="exampleCheck1">isotropic</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group input-group-sm mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Wavelength</span>
+                    </div>
+                    {{ form.wavelength(class="form-control form-control-sm", id="wavelenghtInput", value=wavelength, autocomplete="off") }}
+                </div>
+            </div>
+        </div>
+            <div class="input-group input-group-sm mb-2">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Path loss</span>
+            </div>
+            {{ form.pathLoss(class="form-control form-control-sm", id="pathLossInput", value=pathLoss)  }}
+        </div>
+        <div class="input-group input-group-sm mb-2">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm">b</span>
+            </div>
+            {{ form.b(class="form-control form-control-sm", id="bInput", value=bvalue)  }}
+        </div>
+        <div class="input-group input-group-sm mb-2">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Algorithm</span>
+            </div>
+            {{ form.algorithms(class="form-control form-control-sm", type="text")}}
+        </div>
+        <div class="input-group input-group-sm mb-2">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Plot</span>
+            </div>
+            {{ form.misoPlotTyp(class="form-control form-control-sm", type="text")  }}
+        </div>
+        <div class="form-row">      
+            <div class="col">
+                <div class="input-group input-group-sm mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Color</span>
+                    </div>
+                    {{ form.colors(class="form-control form-control-sm", type="text")  }}
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group input-group-sm mb-2">
+                    {{ form.dimension(class="form-control form-control-sm", type="text")  }}
+                </div>
+            </div>
+        </div>
+
+    <div class="form-group">
+        {{ form.submit(class="btn btn-outline-info") }}
+    </div>
+</fieldset>
+</form>
+
+<script>
+    // var wlRange = document.getElementById("wavelenghtRange");
+    // var wlInput = document.getElementById("wavelenghtInput");
+    // wlRange.value = wlInput.value * 100;
+    
+    // wlRange.oninput = function() {
+    //   wlInput.value = this.value * 0.01;
+    // }
+
+    // wlInput.oninput = function() {
+    //     wlRange.value = this.value * 100;
+    // }
+
+    // var plRange = document.getElementById("pathLossRange");
+    // var plInput = document.getElementById("pathLossInput");
+    // plRange.value = plInput.value;
+    
+    // plRange.oninput = function() {
+    //     plInput.value = this.value;
+    // }
+
+    // plInput.oninput = function() {
+    //     plRange.value = this.value;
+    // }
+
+    // var bRange = document.getElementById("bRange");
+    // var bInput = document.getElementById("bInput");
+    // bRange.value = bInput.value  * 100;
+    
+    // bRange.oninput = function() {
+    //   bInput.value = this.value  * 0.01;;
+    // }
+
+    // bInput.oninput = function() {
+    //     bRange.value = this.value  * 100;
+    // }
+</script>
+{% endblock content2 %}

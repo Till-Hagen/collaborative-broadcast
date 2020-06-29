@@ -1,0 +1,29 @@
+{% extends "documentation/layoutDocu.html" %}
+{% block content %}
+<div class="container border">
+    <legend class="mb-4">Sender</legend>
+
+    <p>In this plot, each point corresponds to a sender that is placed randomly within the radius 1 disc.
+        All senders send to a the same receiver. The signal at the receiver results from the addition of the received signals:
+        <a href="/documentation/model">model</a>.    
+        The signals amplify or cancel each other out according to the <a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Superposition_principle#Wave_interference">superpositions principle</a>.</p>
+
+    <h5><u><b>Number</b></u></h5>
+    <p> You can set the <b>random seed</b> which influences the position of the <b>senders</b>, 
+        so that with the same number of <b>senders</b> and same <b>random seed</b> the <b>senders</b> always have the same position.
+    </p>
+
+    <h5><u><b>Receiver Positions</b></u></h5>
+    <p><b>X,Y,Z</b> are the coordinates of the receiver.</p>
+
+    <h5><u><b>Parameters</b></u></h5>
+
+    <p>With <b>isotropic</b> you can decide whether a sender sends equally in all directions or not. See <a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Isotropic_radiator">Isotropic radiator</a>,
+    <a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Dipole_antenna#Hertzian_dipole">Dipole antenna</a></p>
+
+    <p><b>Path loss, Wavelength</b> and <b>b</b> are parameters of the <a href="/documentation/model">model</a>.
+        The parameters <b>Wavelength</b> and <b>b</b> are passed to the  <a href="/documentation/algorithms">algorithms</a>.
+    You can select which algorithm is used.</p>
+
+</div>
+{% endblock content%}
