@@ -29,6 +29,7 @@ from addCustomRouting import AddCustomRouting
 from mimoDiskRouting import MimoDiskRouting, MimoDiskPng
 from misoRouting import MisoRouting, MisoPng
 from compareAlgorithm import CompareAlgorithmRouting, CompareAlgorithmPng
+from analyzeAlgorithm.analyzeAlgorithm import AnalyzeAlgorithmRouting, AnalyzeAlgorithmPng
 
 
 # models.Algorithm.query.delete()
@@ -61,15 +62,23 @@ def plot_png3():
 def compareAlgorithmPlot():
     return CompareAlgorithmPng()
 
+@app.route('/analyzeAlgorithmPlot.png')
+def analyzeAlgorithmPlot():
+    return AnalyzeAlgorithmPng()
+
 
 @app.route('/', methods=['Get', 'Post'])
 @app.route('/miso', methods=['Get', 'Post'])
 def home():
     return MisoRouting()
     
-@app.route('/compareAlgorihm', methods=['Get', 'Post'])
+@app.route('/compareAlgorithm', methods=['Get', 'Post'])
 def compareAlgorihm():
     return CompareAlgorithmRouting()
+
+@app.route('/analyzeAlgorithm', methods=['Get', 'Post'])
+def analyzeAlgorihm():
+    return AnalyzeAlgorithmRouting()
 
 @app.route('/mimoSphere', methods=['Get', 'Post'])
 def mimoSphere():

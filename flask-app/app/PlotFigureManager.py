@@ -5,12 +5,14 @@ from Simulate.SimulateMimo3d import SimulateMimo3d
 from Simulate.SimulateMiso import SimulateMiso
 from Simulate.SimulateMimo import SimulateMimo
 from Simulate.compareAlgorithmsSimulate import CompareAlgorithmsSimulation
+from Simulate.analyzeAlgorithmsSimulate import AnalyzeAlgorithmsSimulation
 from matplotlib import cm
 from flask import session
 from Figure.MimoSphereFigure import CreateMimoSphereFigure
 from Figure.MimoReceiverFigure import CreateMimoReceiverFigure
 from Figure.MisoSenderFigure import CreateMisoSenderFigure
-from Figure.compareAlgorithmsFigure import CreateCompareAlgorithmsFigure2
+from Figure.compareAlgorithmsFigure import CreateCompareAlgorithmsFigure
+from Figure.analyzeAlgorithmsFigure import CreateAnalyzeAlgorithmFigure
 import numpy as np
 import cmath
 
@@ -21,6 +23,8 @@ MimoReceiverFigure = None
 Mimo3dReceiverFigure = None
 
 compareAlgorithmsFigure = None
+
+analyzeAlgorithmsFigure = None
 
 def GetMimo3dReceiverFigure(_valuesChange, _debug = False):
     global isBusy
@@ -145,7 +149,45 @@ def GetCompareAlgorithmsFigure(_valuesChanged):
                              
     algorithm, data, energie, distanceToOrigin = compareAlgorithmsFigure
     
-    figure = CreateCompareAlgorithmsFigure2(algorithm, data, energie, signalType, minReceivedValue, plotRange, originRadius, distanceToOrigin)
+    figure = CreateCompareAlgorithmsFigure(algorithm, data, energie, signalType, minReceivedValue, plotRange, originRadius, distanceToOrigin)
+
+
+    isBusy = False
+
+    return figure
+
+
+def GetAnalyzeAlgorithmsFigure(_valuesChanged):
+
+    global analyzeAlgorithmsFigure
+
+    formation = session['formation_AC']
+    isotropic = session['isotropic_AC']
+    randomSeed = session['randomSeed_AC']
+    receiverNumber =  session['numberReceiver_AC']
+    senderNumber =  session['numberSender_AC']
+    receiverOrigin = (session['receiverOrigin_AC'][0], session['receiverOrigin_AC'][1], session['receiverOrigin_AC'][2])
+    radius = session['radius_AC']
+    wavelength = session['wavelength_AC']
+    pathLoss = session['pathLoss_AC']
+    bValue = session['bValue_AC']
+    receivedValue = session['receivedValue_AC']
+    signalType = session['signalType_AC']
+    originRadius = session['originRadius_AC']
+    iterations = session['iterations_AC']
+    algorithm = session['algorithm_AC']
+
+    isBusy = True
+
+    plt.close('all')
+
+    if(_valuesChanged or analyzeAlgorithmsFigure == None):
+        analyzeAlgorithmsFigure = AnalyzeAlgorithmsSimulation(algorithm, receiverNumber, senderNumber, receiverOrigin, radius, wavelength, 
+                                                pathLoss, bValue, randomSeed, formation, isotropic, iterations)
+                             
+    data, energie, distanceToOrigin = analyzeAlgorithmsFigure
+    
+    figure = CreateAnalyzeAlgorithmFigure(algorithm, data, energie, signalType, receivedValue, iterations, originRadius, distanceToOrigin)
 
 
     isBusy = False

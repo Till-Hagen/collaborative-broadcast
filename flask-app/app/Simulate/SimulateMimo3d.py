@@ -31,7 +31,7 @@ def SimulateMimo3d(_receiverNumber, _senderNumber, _receiverOrigin, _radius, _wa
     v = np.random.uniform(0,1,_receiverNumber)
     theta = u * 2 * math.pi
     phi = np.arccos(2.0 * v - 1.0)
-    r = np.cbrt(R) * _radius
+    r = np.sqrt(R) * _radius
     sinTheta = np.sin(theta)
     cosTheta = np.cos(theta)
     sinPhi = np.sin(phi)

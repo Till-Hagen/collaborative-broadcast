@@ -23,28 +23,20 @@ def CompareAlgorithmsSimulation(_receiverNumber, _senderNumber, _receiverOrigin,
     iterations = 1000
 
     if _formation == 'sphere':
-        #for algo in algorithms:
-        data = []
-        usedEnergie = []
-        for i in range(iterations):
+        for algo in algorithms:
+            data = []
+            usedEnergie = []
             res = SimulateMimo3d(_receiverNumber, _senderNumber, _receiverOrigin, _radius, _wavelength, 
-                _pathLoss, _b, algorithms[3], _randomSeed + i, _isotropic)
-            data.append(res[3])
-            usedEnergie.append(res[4])
-        simulationData.append(data)
-        energieData.append(usedEnergie)
-        distanceToOrigin.append(res[5])
+                _pathLoss, _b, algo, _randomSeed, _isotropic)
+            simulationData.append(res[3])
+            energieData.append(res[4])
+            distanceToOrigin.append(res[5])
     elif _formation == 'plain horizontal':
         for algo in algorithms:
-            data = np.zeros(_receiverNumber)
-            usedEnergie = 0
-            for i in range(iterations):
-                res = SimulateMimo(_receiverNumber, _senderNumber, _receiverOrigin, _radius, 'Horizontal', _wavelength, 
-                    _pathLoss, _b, algo, _randomSeed, "random", _isotropic)
-                data = data + res[2]
-                usedEnergie = (int)(usedEnergie + res[4])
-            simulationData.append(data / iterations)
-            energieData.append(usedEnergie / iterations)
+            res = SimulateMimo(_receiverNumber, _senderNumber, _receiverOrigin, _radius, 'Horizontal', _wavelength, 
+                _pathLoss, _b, algo, _randomSeed, "random", _isotropic)
+            simulationData.append(res[2])
+            energieData.append(res[4])
             distanceToOrigin.append(res[3])
     elif _formation == 'plain vertical':
         for algo in algorithms:
