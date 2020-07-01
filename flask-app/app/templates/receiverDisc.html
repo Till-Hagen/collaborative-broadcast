@@ -3,7 +3,7 @@
 <div class="container border" style="padding: 0;">
     <div class="chart" id="bargraph">
         {% if show %}
-        <img src="/plot2.png" />
+        <img src="/receiverDiscPlot.png" />
         {% endif %}
     </div>
 
@@ -28,7 +28,7 @@
         <div class="input-group-prepend">
             <span class="input-group-text">Random Seed</span>
         </div>
-        {{ form.randomSeed(class="form-control form-control-sm", value=randomSeed, autocomplete="off")  }}
+        {{ form.randomSeed(class="form-control form-control-sm", autocomplete="off")  }}
         {% for error in form.randomSeed.errors %}
         <span style="color: red;">[{{ error }}]</span>
         {% endfor %}
@@ -39,7 +39,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" >Receiver</span>
                 </div>
-                {{ form.numberReceiver(class="form-control form-control-sm", value=numberReceiver, id="receiverNumber", autocomplete="off")  }}
+                {{ form.numberReceiver(class="form-control form-control-sm", id="receiverNumber", autocomplete="off")  }}
                 {% for error in form.numberReceiver.errors %}
                 <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
@@ -50,7 +50,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text">Sender</span>
                 </div>
-                {{ form.numberSender(class="form-control form-control-sm", value=numberSender,  id="senderNumber", autocomplete="off") }}
+                {{ form.numberSender(class="form-control form-control-sm",  id="senderNumber", autocomplete="off") }}
                 {% for error in form.numberSender.errors %}
                 <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
@@ -79,7 +79,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-sm">x</span>
                     </div>
-                    {{ form.receiverX(class="form-control form-control-sm", value=receiverPos[0], autocomplete="off")  }}
+                    {{ form.receiverX(class="form-control form-control-sm", autocomplete="off")  }}
                     {% for error in form.receiverX.errors %}
                     <span style="color: red;">[{{ error }}]</span>
                     {% endfor %}
@@ -90,7 +90,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-sm">Y</span>
                     </div>
-                    {{ form.receiverY(class="form-control form-control-sm", value=receiverPos[1], autocomplete="off") }}
+                    {{ form.receiverY(class="form-control form-control-sm", autocomplete="off") }}
                     {% for error in form.receiverY.errors %}
                     <span style="color: red;">[{{ error }}]</span>
                     {% endfor %}
@@ -101,7 +101,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-sm">Z</span>
                     </div>
-                    {{ form.receiverZ(class="form-control form-control-sm", value=receiverPos[2], autocomplete="off") }}
+                    {{ form.receiverZ(class="form-control form-control-sm", autocomplete="off") }}
                     {% for error in form.receiverZ.errors %}
                     <span style="color: red;">[{{ error }}]</span>
                     {% endfor %}
@@ -114,7 +114,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-sm">Radius</span>
                     </div>
-                    {{ form.radius(class="form-control form-control-sm", value=radius, autocomplete="off")  }}
+                    {{ form.radius(class="form-control form-control-sm", autocomplete="off")  }}
                     {% for error in form.radius.errors %}
                     <span style="color: red;">[{{ error }}]</span>
                     {% endfor %}
@@ -140,7 +140,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroup-sizing-sm">Wavelength</span>
                         </div>
-                        {{ form.wavelength(class="form-control form-control-sm", id="wavelenghtInput", value=wavelength, autocomplete="off") }}
+                        {{ form.wavelength(class="form-control form-control-sm", id="wavelenghtInput", autocomplete="off") }}
                     </div>
                 </div>
             </div>
@@ -151,7 +151,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroup-sizing-sm">Path loss</span>
                         </div>
-                        {{ form.pathLoss(class="form-control form-control-sm", id="pathLossInput", value=pathLoss, autocomplete="off")  }}
+                        {{ form.pathLoss(class="form-control form-control-sm", id="pathLossInput", autocomplete="off")  }}
                     </div>
                 </div>
                 <div class="col">
@@ -159,7 +159,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroup-sizing-sm">b</span>
                         </div>
-                        {{ form.b(class="form-control form-control-sm", id="bInput", value=bvalue, autocomplete="off")  }}
+                        {{ form.b(class="form-control form-control-sm", id="bInput", autocomplete="off")  }}
                     </div>
                 </div>
             </div>
@@ -192,7 +192,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Min</span>
                             </div>
-                            {{ form.lowerBound(class="form-control form-control-sm", value=lowerBound, autocomplete="off")  }}
+                            {{ form.lowerBound(class="form-control form-control-sm", autocomplete="off")  }}
                             {% for error in form.lowerBound.errors %}
                             <span style="color: red;">[{{ error }}]</span>
                             {% endfor %}
@@ -206,7 +206,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Max</span>
                             </div>
-                            {{ form.upperBound(class="form-control form-control-sm", value=upperBound, autocomplete="off")  }}
+                            {{ form.upperBound(class="form-control form-control-sm", autocomplete="off")  }}
                             {% for error in form.upperBound.errors %}
                             <span style="color: red;">[{{ error }}]</span>
                             {% endfor %}

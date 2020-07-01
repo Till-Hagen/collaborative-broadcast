@@ -24,7 +24,7 @@ def CreateMimoSphereFigure(_model, _debug = False):
     useMax = values[14]
     azimuth = session['azimuth_RS']
     elevation = session['elevation_RS']
-    plotTyp = session['plotTypMimo3d']
+    plotTyp = session['plotTyp_RS']
     
 
     if not useMin:

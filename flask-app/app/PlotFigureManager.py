@@ -36,15 +36,15 @@ def GetMimo3dReceiverFigure(_valuesChange, _debug = False):
 
     isBusy = True
 
-    receiverNumber =  session['receiverNumberMimo3d']
-    senderNumber =  session['senderNumberMimo3d']
-    receiverOrigin =  session['receiverOriginMimo3d']
-    radius =  session['radiusMimo3d']
-    wavelength =  session['wavelengthMimo3d']
-    pathLoss =  session['pathLossMimo3d']
-    b =  session['bValueMimo3d']
-    algorithm =  session['algorithmMimo3d']
-    randomSeed =  session['randomSeedMimo3d']
+    receiverNumber =  session['receiverNumber_RS']
+    senderNumber =  session['senderNumber_RS']
+    receiverOrigin =  session['receiverOrigin_RS']
+    radius =  session['radius_RS']
+    wavelength =  session['wavelength_RS']
+    pathLoss =  session['pathLoss_RS']
+    b =  session['bValue_RS']
+    algorithm =  session['algorithm_RS']
+    randomSeed =  session['randomSeed_RS']
     isotropic =  session['isotropic_RS']
 
     plt.close('all')
@@ -69,50 +69,7 @@ def GetMimo3dReceiverFigure(_valuesChange, _debug = False):
 
     return receiver_Mimo3d_figure
 
-def GetMimoReceiverFigure(_receiverNumber, _senderNumber, _receiverPos, _radius, _orientation, 
-                        _wavelength, _pathLoss, _b, _algorithm, _colors, _vmin, _vmax, _plotTyp, _dimension,
-                         _randomSeed, _useMin, _useMax, _formation, _logScale, _valuesChange, _debug = False):
-    global isBusy
 
-    global MimoReceiverFigure
-
-    if isBusy:
-        return
-
-    isBusy = True
-
-    vmin, vmax = None, None
-    if(_useMin):
-        vmin = _vmin
-    if(_useMax):
-        vmax = _vmax
-
-    isotropic = session['isotropic']
-
-    plt.close('all')
-
-    if(_valuesChange):
-        if _debug:
-            print("values changed so calculate new")
-        MimoReceiverFigure = SimulateMimo(_receiverNumber, _senderNumber, _receiverPos, _radius, _orientation, 
-                                                _wavelength, _pathLoss, _b, _algorithm, _randomSeed, _formation, isotropic)
-    else:
-        if _debug:
-            print("values not changed so dont calculate new")
-        if MimoReceiverFigure == None:
-            if _debug:
-                print("But MimoFigure == None so calculate new")
-            MimoReceiverFigure = SimulateMimo(_receiverNumber, _senderNumber, _receiverPos, _radius, _orientation, 
-                                        _wavelength, _pathLoss, _b, _algorithm, _randomSeed, _formation, isotropic)
-
-
-    
-    receiver_Mimo_figure = CreateMimoReceiverFigure(MimoReceiverFigure, _colors, _receiverPos, _radius, 
-                                                    _orientation, vmin, vmax, _plotTyp, _dimension, _logScale)
-
-    isBusy = False
-
-    return receiver_Mimo_figure
 
 def Create_miso_figure(_senderNumber, _receiverPos, _wavelength, _pathLoss, _b,  _algorithm, _colors, _randomSeed, _dimension, _plotTyp):
 
@@ -157,39 +114,3 @@ def GetCompareAlgorithmsFigure(_valuesChanged):
     return figure
 
 
-def GetAnalyzeAlgorithmsFigure(_valuesChanged):
-
-    global analyzeAlgorithmsFigure
-
-    formation = session['formation_AC']
-    isotropic = session['isotropic_AC']
-    randomSeed = session['randomSeed_AC']
-    receiverNumber =  session['numberReceiver_AC']
-    senderNumber =  session['numberSender_AC']
-    receiverOrigin = (session['receiverOrigin_AC'][0], session['receiverOrigin_AC'][1], session['receiverOrigin_AC'][2])
-    radius = session['radius_AC']
-    wavelength = session['wavelength_AC']
-    pathLoss = session['pathLoss_AC']
-    bValue = session['bValue_AC']
-    receivedValue = session['receivedValue_AC']
-    signalType = session['signalType_AC']
-    originRadius = session['originRadius_AC']
-    iterations = session['iterations_AC']
-    algorithm = session['algorithm_AC']
-
-    isBusy = True
-
-    plt.close('all')
-
-    if(_valuesChanged or analyzeAlgorithmsFigure == None):
-        analyzeAlgorithmsFigure = AnalyzeAlgorithmsSimulation(algorithm, receiverNumber, senderNumber, receiverOrigin, radius, wavelength, 
-                                                pathLoss, bValue, randomSeed, formation, isotropic, iterations)
-                             
-    data, energie, distanceToOrigin = analyzeAlgorithmsFigure
-    
-    figure = CreateAnalyzeAlgorithmFigure(algorithm, data, energie, signalType, receivedValue, iterations, originRadius, distanceToOrigin)
-
-
-    isBusy = False
-
-    return figure

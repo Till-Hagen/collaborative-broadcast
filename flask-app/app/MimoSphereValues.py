@@ -1,56 +1,56 @@
 from flask import session
 
 def GetMimoSphereValues():
-    if 'senderNumberMimo3d' not in session:
-        session['senderNumberMimo3d'] = 10000
+    if 'senderNumber_RS' not in session:
+        session['senderNumber_RS'] = 10000
 
-    if 'receiverNumberMimo3d' not in session:
-        session['receiverNumberMimo3d'] = 10000
+    if 'receiverNumber_RS' not in session:
+        session['receiverNumber_RS'] = 10000
 
-    if 'receiverOriginMimo3d' not in session:
-        session['receiverOriginMimo3d'] = (0,0,0)
+    if 'receiverOrigin_RS' not in session:
+        session['receiverOrigin_RS'] = (0,0,0)
 
-    if 'radiusMimo3d' not in session:
-        session['radiusMimo3d'] = 2
+    if 'radius_RS' not in session:
+        session['radius_RS'] = 2
 
-    if 'wavelengthMimo3d' not in session:
-        session['wavelengthMimo3d'] = 0.1
+    if 'wavelength_RS' not in session:
+        session['wavelength_RS'] = 0.1
 
-    if 'pathLossMimo3d' not in session:
-        session['pathLossMimo3d'] = 2
+    if 'pathLoss_RS' not in session:
+        session['pathLoss_RS'] = 2
 
-    if 'bValueMimo3d' not in session:
-        session['bValueMimo3d'] = 1
+    if 'bValue_RS' not in session:
+        session['bValue_RS'] = 1
 
-    if 'algorithmMimo3d' not in session:
-        session['algorithmMimo3d'] = 'Parametrized Supernova'
+    if 'algorithm_RS' not in session:
+        session['algorithm_RS'] = 'Parametrized Supernova'
 
-    if 'randomSeedMimo3d' not in session:
-        session['randomSeedMimo3d'] = 1
+    if 'randomSeed_RS' not in session:
+        session['randomSeed_RS'] = 1
 
     if 'isotropic_RS' not in session:
         session['isotropic_RS'] = False
 
-    if 'color' not in session:
-        session['color'] = 'Greys'
+    if 'color_RS' not in session:
+        session['color_RS'] = 'Greys'
 
-    if 'vmin' not in session:
-        session['vmin'] = -1
+    if 'vmin_RS' not in session:
+        session['vmin_RS'] = -1
 
-    if 'vmax' not in session:
-        session['vmax'] = 1
+    if 'vmax_RS' not in session:
+        session['vmax_RS'] = 1
 
-    if 'plotTypMimo3d' not in session:
-        session['plotTypMimo3d'] = '|z|^2'
+    if 'plotTyp_RS' not in session:
+        session['plotTyp_RS'] = '|z|^2'
     
-    if 'useMin' not in session:
-        session['useMin'] = True
+    if 'useMin_RS' not in session:
+        session['useMin_RS'] = True
 
-    if 'useMax' not in session:
-        session['useMax'] = True
+    if 'useMax_RS' not in session:
+        session['useMax_RS'] = True
 
-    if 'logScale' not in session:
-        session['logScale'] = False
+    if 'logScale_RS' not in session:
+        session['logScale_RS'] = False
 
     if 'cutOrigin_RS' not in session:
         session['cutOrigin_RS'] = True
@@ -66,25 +66,25 @@ def GetMimoSphereValues():
 
 
 
-    return(session['senderNumberMimo3d'], session['receiverNumberMimo3d'], session['receiverOriginMimo3d'], 
-            session['radiusMimo3d'], session['wavelengthMimo3d'], session['pathLossMimo3d'], session['bValueMimo3d'],
-            session['algorithmMimo3d'], session['randomSeedMimo3d'], session['color'], session['vmin'], session['vmax'], 
-            session['plotTypMimo3d'], session['useMin'], session['useMax'], session['logScale'], session['isotropic_RS'],
+    return(session['senderNumber_RS'], session['receiverNumber_RS'], session['receiverOrigin_RS'], 
+            session['radius_RS'], session['wavelength_RS'], session['pathLoss_RS'], session['bValue_RS'],
+            session['algorithm_RS'], session['randomSeed_RS'], session['color_RS'], session['vmin_RS'], session['vmax_RS'], 
+            session['plotTyp_RS'], session['useMin_RS'], session['useMax_RS'], session['logScale_RS'], session['isotropic_RS'],
             session['cutOrigin_RS'], session['originRadius_RS'], session['elevation_RS'], session['azimuth_RS'])
 
 
 def ValuesChanged(form, _debug = False):
     if  (
-        session['randomSeedMimo3d'] != form.randomSeed.data or
-        session['receiverNumberMimo3d'] != form.numberReceiver.data or
-        session['senderNumberMimo3d'] != form.numberSender.data or
-        session['receiverOriginMimo3d'] != (form.receiverX.data, form.receiverY.data, form.receiverZ.data)  or
-        session['radiusMimo3d'] != form.radius.data or
+        session['randomSeed_RS'] != form.randomSeed.data or
+        session['receiverNumber_RS'] != form.numberReceiver.data or
+        session['senderNumber_RS'] != form.numberSender.data or
+        session['receiverOrigin_RS'] != (form.receiverX.data, form.receiverY.data, form.receiverZ.data)  or
+        session['radius_RS'] != form.radius.data or
         session['isotropic_RS'] != form.isotropic.data or
-        session['wavelengthMimo3d'] != form.wavelength.data or
-        session['pathLossMimo3d'] != form.pathLoss.data or
-        session['bValueMimo3d'] != form.bValue.data or
-        session['algorithmMimo3d'] != form.algorithms.data):
+        session['wavelength_RS'] != form.wavelength.data or
+        session['pathLoss_RS'] != form.pathLoss.data or
+        session['bValue_RS'] != form.bValue.data or
+        session['algorithm_RS'] != form.algorithms.data):
         if _debug:
             print("Values changed")
         return True

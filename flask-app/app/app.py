@@ -30,6 +30,7 @@ from mimoDiskRouting import MimoDiskRouting, MimoDiskPng
 from misoRouting import MisoRouting, MisoPng
 from compareAlgorithm import CompareAlgorithmRouting, CompareAlgorithmPng
 from analyzeAlgorithm.analyzeAlgorithm import AnalyzeAlgorithmRouting, AnalyzeAlgorithmPng
+from ReceiverDisc.receiverDiscRouting import ReceiverDiscPng, ReceiverDiscRouting
 
 
 # models.Algorithm.query.delete()
@@ -48,11 +49,6 @@ def plot_png():
 @app.route('/addCustom/<name>', methods=['Get', 'Post'])
 def addCustom(name = None):
     return AddCustomRouting(name)
-
-
-@app.route('/plot2.png')
-def plot_png2():
-    return MimoDiskPng()
 
 @app.route('/plot3.png')
 def plot_png3():
@@ -84,10 +80,13 @@ def analyzeAlgorihm():
 def mimoSphere():
     return MimoSphereRouting()
     
+@app.route('/receiverDisc', methods=['Get', 'Post'])
+def receiverDiscRouting():
+    return ReceiverDiscRouting()
 
-@app.route('/mimo', methods=['Get', 'Post'])
-def mimo():
-    return MimoDiskRouting()
+@app.route('/receiverDiscPlot.png')
+def receiverDiscPng():
+    return ReceiverDiscPng()
 
 
 if __name__ == "__main__":

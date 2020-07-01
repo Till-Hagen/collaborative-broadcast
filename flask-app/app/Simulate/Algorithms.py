@@ -39,7 +39,7 @@ def RunCunstomAlgorithm(_algorithm ,_X, _Y, _wavelength, _b):
 def ParametrizedSupernova(_X, _Y, _wavelength, _b):
     senderDist = np.sqrt(np.square(_X) + np.square(_Y))
     cons = 2 * cmath.pi / _wavelength
-    varphi =  _b * cons * senderDist 
+    varphi =  -_b * cons * senderDist 
     a = np.ones(_X.shape)
     return (varphi, a)
 
