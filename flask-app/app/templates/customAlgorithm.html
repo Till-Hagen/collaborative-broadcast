@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% block content %}
+<form method="POST" action="">
+    {{ form.hidden_tag() }}
+    <div class="container border">
+        <div class="mt-2 mb-0">
+            <p><b><span style="color: #006699;">import</span> cmath<br>
+                <span style="color: #006699;">import</span> math<br>
+                <span style="color: #006699;">import</span> numpy <span style="color: #006699;">as</span> np</b></p>
+            <p class="mb-0"><b><span style="color: #006699;">def</span> {{functionName}}(
+                <span style="color: #3399ff;"> _X</span>: ndarray, 
+                <span style="color: #3399ff;"> _Y</span>: ndarray, 
+                <span style="color: #3399ff;"> _wavelength</span>: float, 
+                <span style="color: #3399ff;"> _b</span>: float):</b></p>
+        </div>
+        <div class="ml-4 mt-0">
+            {{ form.exceStringField(style="width: 100%; height: 350px", type="text", autocomplete="off", autocorrect="off", autocapitalize="off", spellcheck="false") }}
+        </div>
+    </div>
+
+
+{% endblock content%}
+{% block content2 %}
+    <fieldset class="form-group">
+        <legend class="border-bottom">Add/Edit Algorithms</legend>
+        <div class="input-group input-group-sm mb-2">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Algorithm</span>
+            </div>
+            {{ form.algorithms(class="form-control form-control-sm", type="text", autocomplete="off", autocorrect="off", autocapitalize="off", spellcheck="false")  }}
+        </div>
+        <div class="input-group input-group-sm mb-2">
+          <div class="input-group-prepend">
+              <span class="input-group-text">Algorithm Name</span>
+          </div>
+          {{ form.algorithmName(class="form-control form-control-sm", autocomplete="off")  }}
+        </div>
+    </fieldset>
+    <div class="form-row">      
+        <div class="col d-flex justify-content-center">
+            <div class="form-group">
+                {{ form.save(class="btn btn-outline-info") }}
+            </div>
+        </div>
+        <div class="col d-flex justify-content-center">
+            <div class="form-group">
+                {{ form.delete(class="btn btn-outline-info") }}
+            </div>
+        </div>
+    </div>
+
+
+  </form>
+
+<script>
+    var algorithms = document.getElementById("algorithms");
+
+    algorithms.oninput = function() {
+        var x = algorithms.value;
+        window.location.href="/customAlgorithm/" + x;
+    }
+
+</script>
+{% endblock content2 %}

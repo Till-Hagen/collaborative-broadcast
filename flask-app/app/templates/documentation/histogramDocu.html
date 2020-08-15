@@ -1,0 +1,42 @@
+{% extends "documentation/layoutDocu.html" %}
+{% block content %}
+<div class="container border">
+    <legend class="mb-4">Histogram</legend>
+
+    <h5><u><b>Number</b></u></h5>
+    <p> You can set the <b>random seed</b> which influences the position of the <b>senders</b> and <b>receivers</b>, 
+        so that <b>senders</b> and <b>receivers</b> always have the same position with the same number of <b>senders</b>, <b>receivers</b> and same <b>random seed</b>.
+        The required calculation factor is shown under <b>Log10(calculation) </b>and cannot take a value above 9.
+    </p>
+
+    <h5><u><b>Receiver Positions</b></u></h5>
+    <p>With <b>Formation</b> you can choose in which form the receivers are distributed, 3d sphere, 2d horizontal disk, 2d vertical disk. 
+        <b>X,Y,Z</b> are the coordinates of the origin of the choosen shape and 
+        <b>Radius</b> the corresponding radius in which the receiver are randomly distributed.</p>
+
+    <h5><u><b>Parameters</b></u></h5>
+
+    <p>With <b>isotropic</b> you can decide whether a sender sends equally in all directions or not. See <a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Isotropic_radiator">Isotropic radiator</a>,
+        <a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Dipole_antenna#Hertzian_dipole">Dipole antenna</a></p>
+    
+        <p><b>Path loss, Wavelength</b> and <b>b</b> are parameters of the <a href="/documentation/model">model</a>.
+            The parameters <b>Wavelength</b> and <b>b</b> are passed to the  <a href="/documentation/algorithms">algorithms</a>.
+        You can select which <b>algorithm</b> is used.</p>
+
+    <h5><u><b>Plot Settings</b></u></h5>
+
+    <p><b>Signal value</b> determines the minimum signal value which must be exceeded at a receiver in order to be counted.</p>
+
+    <p>With <b>Signal</b> you can choose which part of the received signal must exceed the minimum signal value. 
+        For example, only the imaginary part or only the real one.</p>
+
+
+    <p>You can set the <b>ignore receiver in origin radius</b> so that all receivers that are within the selected radius from the origin (0,0,0) are not counted in the plot.</p>
+
+    <h5><u><b>Simulate</b></u></h5>
+
+    <p>
+        Each algorithm is simulated and then the plot is created.
+        If only values ​​under plot sessings are changed, the algorithms are not re-simulated but the changes are applied to the plot.</p>
+</div>
+{% endblock content%}

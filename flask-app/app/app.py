@@ -2,7 +2,6 @@ from flask import Flask, render_template ,make_response, url_for, flash, redirec
 
 import io
 import random
-import SessionValues as v
 from flask import Response, session
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 
@@ -20,17 +19,13 @@ db = SQLAlchemy(app)
 # db.drop_all()
 migrate = Migrate(app, db)
 
-
-import PlotFigureManager as cFigure
 import models
-from froms import SimulationMimoFrom, SimulationMisoFrom, AddCustomFrom
-from MimoSphereRouting import MimoSphereRouting, MimoSpherePng
-from addCustomRouting import AddCustomRouting
-from mimoDiskRouting import MimoDiskRouting, MimoDiskPng
-from misoRouting import MisoRouting, MisoPng
-from compareAlgorithm import CompareAlgorithmRouting, CompareAlgorithmPng
-from analyzeAlgorithm.analyzeAlgorithm import AnalyzeAlgorithmRouting, AnalyzeAlgorithmPng
-from ReceiverDisc.receiverDiscRouting import ReceiverDiscPng, ReceiverDiscRouting
+from Modules.CompareModule.compareMain import CompareRouting, ComparePng
+from Modules.ReceiverDisk.receiverDiskMain import ReceiverDiskPng, ReceiverDiskRouting
+from Modules.SenderModule.senderMain import SenderRouting, StartSimulationAndVisualization
+from Modules.ReceiverSphere.receiverSphereMain import ReceiverSpherePng, ReceiverSphereRouting
+from Modules.CustomAlgorithm.customAlgorithmMain import CustomAlgorithmRouting
+from Modules.HistogramModule.histogramMain import HistogramPng, HistogramRouting
 
 
 # models.Algorithm.query.delete()
@@ -38,56 +33,56 @@ from ReceiverDisc.receiverDiscRouting import ReceiverDiscPng, ReceiverDiscRoutin
 
 valuesChanged = True
 
+@app.route('/', methods=['Get', 'Post'])
 @app.route('/documentation/<name>', methods=['Get', 'Post'])
-def docu(name):
+def docu(name = 'model'):
     return render_template('documentation/'+ name + 'Docu.html')
 
-@app.route('/miso.png')
-def plot_png():
-    return MisoPng()
 
-@app.route('/addCustom/<name>', methods=['Get', 'Post'])
-def addCustom(name = None):
-    return AddCustomRouting(name)
-
-@app.route('/plot3.png')
-def plot_png3():
-    return MimoSpherePng()
-
-@app.route('/compareAlgorithmPlot.png')
-def compareAlgorithmPlot():
-    return CompareAlgorithmPng()
-
-@app.route('/analyzeAlgorithmPlot.png')
-def analyzeAlgorithmPlot():
-    return AnalyzeAlgorithmPng()
-
-
-@app.route('/', methods=['Get', 'Post'])
-@app.route('/miso', methods=['Get', 'Post'])
+@app.route('/sender', methods=['Get', 'Post'])
 def home():
-    return MisoRouting()
-    
-@app.route('/compareAlgorithm', methods=['Get', 'Post'])
-def compareAlgorihm():
-    return CompareAlgorithmRouting()
+    return SenderRouting()
 
-@app.route('/analyzeAlgorithm', methods=['Get', 'Post'])
-def analyzeAlgorihm():
-    return AnalyzeAlgorithmRouting()
+@app.route('/senderPlot.png')
+def plot_png():
+    return StartSimulationAndVisualization()
 
-@app.route('/mimoSphere', methods=['Get', 'Post'])
+@app.route('/receiverDisk', methods=['Get', 'Post'])
+def receiverDiskRouting():
+    return ReceiverDiskRouting()
+
+@app.route('/receiverDiskPlot.png')
+def receiverDiskPng():
+    return ReceiverDiskPng()
+
+@app.route('/receiverSphere', methods=['Get', 'Post'])
 def mimoSphere():
-    return MimoSphereRouting()
-    
-@app.route('/receiverDisc', methods=['Get', 'Post'])
-def receiverDiscRouting():
-    return ReceiverDiscRouting()
+    return ReceiverSphereRouting()
 
-@app.route('/receiverDiscPlot.png')
-def receiverDiscPng():
-    return ReceiverDiscPng()
+@app.route('/receiverSpherePlot.png')
+def plot_png3():
+    return ReceiverSpherePng()
 
+
+@app.route('/compare', methods=['Get', 'Post'])
+def compareAlgorihm():
+    return CompareRouting()
+
+@app.route('/comparePlot.png')
+def compareAlgorithmPlot():
+    return ComparePng()
+
+@app.route('/histogram', methods=['Get', 'Post'])
+def analyzeAlgorihm():
+    return HistogramRouting()
+
+@app.route('/histogramPlot.png')
+def analyzeAlgorithmPlot():
+    return HistogramPng()
+
+@app.route('/customAlgorithm/<name>', methods=['Get', 'Post'])
+def addCustom(name = None):
+    return CustomAlgorithmRouting(name)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)

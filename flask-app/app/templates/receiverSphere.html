@@ -1,0 +1,329 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container border">
+    <div class="chart" id="bargraph">
+        {% if show %}
+        <img src="/receiverSpherePlot.png" />
+        {% endif %}
+    </div>
+
+</div>
+
+<!-- <div class="container border">
+    <div class="chart" id="bargraph">
+        {% if show %}
+        <img src="/plot3.png" />
+        {% endif %}
+    </div>
+</div> -->
+
+{% endblock content%}
+{% block content2 %}
+<form method="POST" action="">
+  {{ form.hidden_tag() }}
+  <fieldset class="form-group">
+      <legend class="border-bottom mb-4">Receiver Sphere</legend>
+      <label class="form-control-label">Number</label>
+      <div class="input-group input-group-sm mb-2">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Random Seed</span>
+        </div>
+        {{ form.randomSeed(class="form-control form-control-sm", value=randomSeed, autocomplete="off")  }}
+        {% for error in form.randomSeed.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </div>
+      <div class="form-row">      
+        <div class="col">
+            <div class="input-group input-group-sm mb-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" >Receiver</span>
+                </div>
+                {{ form.numberReceiver(class="form-control form-control-sm", value=numberReceiver, id="receiverNumber", autocomplete="off")  }}
+                {% for error in form.numberReceiver.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col">
+            <div class="input-group input-group-sm mb-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Sender</span>
+                </div>
+                {{ form.numberSender(class="form-control form-control-sm", value=numberSender,  id="senderNumber", autocomplete="off") }}
+                {% for error in form.numberSender.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="input-group input-group-sm mb-2">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Log10(Calculations)</span>
+        </div>
+        {{ form.calcs_inLog10(class="form-control form-control-sm",  id="calcs_inLog10", readonly=true) }}
+        {% for error in form.calcs_inLog10.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </div>
+    <label class="form-control-label">Receiver Positions</label>
+        <div class="form-row">      
+            <div class="col">
+                <div class="input-group input-group-sm mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">x</span>
+                    </div>
+                    {{ form.receiverX(class="form-control form-control-sm", value=receiverPos[0], autocomplete="off")  }}
+                    {% for error in form.receiverX.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group input-group-sm mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Y</span>
+                    </div>
+                    {{ form.receiverY(class="form-control form-control-sm", value=receiverPos[1], autocomplete="off") }}
+                    {% for error in form.receiverY.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group input-group-sm mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Z</span>
+                    </div>
+                    {{ form.receiverZ(class="form-control form-control-sm", value=receiverPos[2], autocomplete="off") }}
+                    {% for error in form.receiverZ.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="form-row">      
+            <div class="col">
+                <div class="input-group input-group-sm mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Radius</span>
+                    </div>
+                    {{ form.radius(class="form-control form-control-sm", value=radius, autocomplete="off")  }}
+                    {% for error in form.radius.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <label class="form-control-label">Parameter</label>
+        <div class="form-group mt-1">
+            <div class="form-row">      
+                <div class="col">
+                    <div class="form-check ml-2">
+                        {{ form.isotropic(class="form-check-input")  }}
+                        <label class="form-check-label" for="exampleCheck1">isotropic</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group input-group-sm mb-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Wavelength</span>
+                        </div>
+                        {{ form.wavelength(class="form-control form-control-sm", id="wavelenghtInput", value=wavelength, autocomplete="off") }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">      
+                <div class="col">
+                    <div class="input-group input-group-sm mb-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Path loss</span>
+                        </div>
+                        {{ form.pathLoss(class="form-control form-control-sm", id="pathLossInput", value=pathLoss, autocomplete="off")  }}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group input-group-sm mb-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">b</span>
+                        </div>
+                        {{ form.bValue(class="form-control form-control-sm", id="bInput", value=bvalue, autocomplete="off")  }}
+                    </div>
+                </div>
+            </div>
+            <div class="input-group input-group-sm mb-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Algorithm</span>
+                </div>
+                {{ form.algorithms(class="form-control form-control-sm", type="text")}}
+            </div>
+        </div>
+        <label class="form-control-label">Plot Settings</label>
+        <div class="form-group">
+            <div class="form-check ml-2">
+                {{ form.cutOrigin(class="form-check-input")  }}
+                <div class="input-group input-group-sm mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Cut origin radius</span>
+                    </div>
+                    {{ form.originRadius(class="form-control form-control-sm", autocomplete="off")  }}
+                    {% for error in form.upperBound.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </div>   
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <div class="form-check ml-2">
+                        {{ form.useMin(class="form-check-input")  }}
+                        <div class="input-group input-group-sm mb-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Min</span>
+                            </div>
+                            {{ form.lowerBound(class="form-control form-control-sm", value=lowerBound, autocomplete="off")  }}
+                            {% for error in form.lowerBound.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>    
+                <div class="col">
+                    <div class="form-check ml-2">
+                        {{ form.useMax(class="form-check-input")  }}
+                        <div class="input-group input-group-sm mb-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Max</span>
+                            </div>
+                            {{ form.upperBound(class="form-control form-control-sm", value=upperBound, autocomplete="off")  }}
+                            {% for error in form.upperBound.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </div>   
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">      
+                <div class="col">
+                    <div class="form-check ml-2">
+                        {{ form.logScale(class="form-check-input")  }}
+                        <label class="form-check-label" for="exampleCheck1">logarithmic scale</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group input-group-sm mb-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Plot</span>
+                        </div>
+                        {{ form.plotTyp(class="form-control form-control-sm", type="text")  }}
+                    </div>
+                </div>
+            </div>
+            <div class="input-group input-group-sm mb-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Color</span>
+                </div>
+                {{ form.colors(class="form-control form-control-sm", type="text")  }}
+            </div>
+            <div class="form-row">      
+                <div class="col">
+                    <div class="input-group input-group-sm mb-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Elevation</span>
+                        </div>
+                        {{ form.elevation(class="form-control form-control-sm", id="pathLossInput", autocomplete="off")  }}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group input-group-sm mb-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Azimuth</span>
+                        </div>
+                        {{ form.azimuth(class="form-control form-control-sm", id="bInput", autocomplete="off")  }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">      
+            <div class="col d-flex justify-content-center">
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-outline-info") }}
+                </div>
+            </div>
+            <div class="col d-flex justify-content-center">
+                <div class="form-group">
+                    {{ form.getData(class="btn btn-outline-info") }}
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</form>
+
+<script>
+    var receiverNumber = document.getElementById("receiverNumber");
+    var senderNumber = document.getElementById("senderNumber");
+    var calcs_inLog10 = document.getElementById("calcs_inLog10");
+    calcs_inLog10.value = Math.log10(senderNumber.value * receiverNumber.value);
+
+    senderNumber.oninput = function() {
+        calcs_inLog10.value = Math.log10(senderNumber.value * receiverNumber.value);
+    }
+
+    receiverNumber.oninput = function() {
+        calcs_inLog10.value = Math.log10(senderNumber.value * receiverNumber.value);
+    }
+</script>
+
+<!-- <script>
+
+    var receiverNumber = document.getElementById("receiverNumber");
+    var senderNumber = document.getElementById("senderNumber");
+    var calcs_inLog10 = document.getElementById("calcs_inLog10");
+    calcs_inLog10.value = Math.log10(senderNumber.value * receiverNumber.value);
+
+    senderNumber.oninput = function() {
+        calcs_inLog10.value = Math.log10(senderNumber.value * receiverNumber.value);
+    }
+
+    receiverNumber.oninput = function() {
+        calcs_inLog10.value = Math.log10(senderNumber.value * receiverNumber.value);
+    }
+
+
+    var wlRange = document.getElementById("wavelenghtRange");
+    var wlInput = document.getElementById("wavelenghtInput");
+    wlRange.value = wlInput.value * 100;
+    
+    wlRange.oninput = function() {
+      wlInput.value = this.value * 0.01;
+    }
+
+    wlInput.oninput = function() {
+        wlRange.value = this.value * 100;
+    }
+
+    var plRange = document.getElementById("pathLossRange");
+    var plInput = document.getElementById("pathLossInput");
+    plRange.value = plInput.value;
+    
+    plRange.oninput = function() {
+        plInput.value = this.value;
+    }
+
+    plInput.oninput = function() {
+        plRange.value = this.value;
+    }
+
+    var bRange = document.getElementById("bRange");
+    var bInput = document.getElementById("bInput");
+    bRange.value = bInput.value  * 100;
+    
+    bRange.oninput = function() {
+      bInput.value = this.value  * 0.01;;
+    }
+
+    bInput.oninput = function() {
+        bRange.value = this.value  * 100;
+    }
+</script> -->
+{% endblock content2 %}
